@@ -35,4 +35,12 @@ actor MockDataService: DataServiceProtocol {
     func updateNote(text: String, id: Int) async throws {
         
     }
+    
+    func updateTitleFolder(newTitle: String, id: Int) async throws {
+        
+    }
+    
+    func updateTitleNote(newTitle: String, id: Int) async throws {
+        
+    }
 }

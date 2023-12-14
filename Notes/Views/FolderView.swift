@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FolderView: View {
     @State private var showAddNoteSheet: Bool = false
+    @State private var showEditNoteSheet: Bool = false
     
     @StateObject private var viewModel: NoteViewModel
     
@@ -36,8 +37,19 @@ struct FolderView: View {
                                 viewModel.updateNote(text: text, id: id)
                             }
                         }
+                        .sheet(isPresented: $showEditNoteSheet, content: {
+                            EditEntitySheet(text: note.title) { newTitle in
+                                viewModel.updateTitleNote(newTitle: newTitle, id: note.id)
+                            }
+                        })
                     }
                     .onDelete(perform: viewModel.deleteNote)
+                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                        Button("Редактировать") {
+                            self.showEditNoteSheet.toggle()
+                        }
+                        .tint(Color.yellow)
+                    }
                 }
             } else {
                 noDataView
@@ -66,12 +78,12 @@ struct FolderView: View {
         .onDisappear {
             viewModel.cancelAllTasks()
         }
-        .navigationTitle(folder.name)
+        .navigationTitle(folder.title)
     }
 }
 
 #Preview {
     NavigationStack {
-        FolderView(folder: FolderModel(name: "Name"), service: DataService())
+        FolderView(folder: FolderModel(title: "Name"), service: DataService())
     }
 }

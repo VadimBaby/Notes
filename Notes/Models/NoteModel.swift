@@ -11,7 +11,7 @@ import Foundation
 struct NoteModel: Identifiable, Codable {
     let id: Int
     var text: String
-    let title: String
+    var title: String
     let idFolder: Int
     let created_at: Date
     

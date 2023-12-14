@@ -63,10 +63,10 @@ final class FolderViewModel: ObservableObject {
         }
     }
     
-    func addFolders(name: String) {
+    func addFolders(title: String) {
         let task = Task {
             do {
-                let folder = FolderModel(name: name)
+                let folder = FolderModel(title: title)
                 
                 try await service.addFolder(folder: folder)
                 
@@ -95,6 +95,22 @@ final class FolderViewModel: ObservableObject {
                 } catch {
                     print(error.localizedDescription)
                 }
+            }
+        }
+    }
+    
+    func updateTitleFolder(newTitle: String, id: Int) {
+        guard let index = folders.firstIndex(where: { folder in
+            return folder.id == id
+        }) else { return }
+        
+        folders[index].title = newTitle
+        
+        Task {
+            do {
+                try await service.updateTitleFolder(newTitle: newTitle, id: id)
+            } catch {
+                print(error)
             }
         }
     }

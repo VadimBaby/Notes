@@ -129,6 +129,22 @@ final class NoteViewModel: ObservableObject {
         tasks.append(task)
     }
     
+    func updateTitleNote(newTitle: String, id: Int) {
+        guard let index = notes.firstIndex(where: { note in
+            return note.id == id
+        }) else { return }
+        
+        notes[index].title = newTitle
+        
+        Task {
+            do {
+                try await service.updateTitleNote(newTitle: newTitle, id: id)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     private func updateLocalNotes(text: String, id: Int) {
         guard let index = notes.firstIndex(where: { loopNote in
             return loopNote.id == id

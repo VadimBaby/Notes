@@ -44,4 +44,12 @@ actor DataService: DataServiceProtocol {
     func updateNote(text: String, id: Int) async throws {
         try await client.database.from(noteDatabase).update(["text": text]).eq("id", value: id).execute()
     }
+    
+    func updateTitleFolder(newTitle: String, id: Int) async throws {
+        try await client.database.from(folderDatabase).update(["title": newTitle]).eq("id", value: id).execute()
+    }
+    
+    func updateTitleNote(newTitle: String, id: Int) async throws {
+        try await client.database.from(noteDatabase).update(["title": newTitle]).eq("id", value: id).execute()
+    }
 }

@@ -9,12 +9,12 @@ import Foundation
 
 struct FolderModel: Identifiable, Codable {
     let id: Int
-    let name: String
+    var title: String
     let created_at: Date
     
-    init(id: Int = Int.random(in: 0...9999), name: String, created_at: Date = Date()) {
+    init(id: Int = Int.random(in: 0...9999), title: String, created_at: Date = Date()) {
         self.id = id
-        self.name = name
+        self.title = title
         self.created_at = created_at
     }
 }

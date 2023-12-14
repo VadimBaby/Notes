@@ -10,6 +10,7 @@ import SwiftUI
 struct ListFolderView: View {
     
     @State private var showAddFolderSheet: Bool = false
+    @State private var showEditFolderSheet: Bool = false
     
     @StateObject private var viewModel: FolderViewModel
     
@@ -30,14 +31,25 @@ struct ListFolderView: View {
                 } else if !viewModel.folders.isEmpty {
                     List {
                         ForEach(viewModel.sortedFolders) { folder in
-                            NavigationLink(folder.name) {
+                            NavigationLink(folder.title) {
                                 FolderView(
                                     folder: folder,
                                     service: service
                                 )
                             }
+                            .sheet(isPresented: $showEditFolderSheet, content: {
+                                EditEntitySheet(text: folder.title) { text in
+                                    viewModel.updateTitleFolder(newTitle: text, id: folder.id)
+                                }
+                            })
                         }
                         .onDelete(perform: viewModel.deleteFolder)
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button("Редактировать") {
+                                self.showEditFolderSheet.toggle()
+                            }
+                            .tint(Color.yellow)
+                        }
                     }
                     .refreshable {
                         await viewModel.asyncFetchFolders()
@@ -57,7 +69,7 @@ struct ListFolderView: View {
             }
             .popover(isPresented: $showAddFolderSheet) {
                 CreateEntitySheet { title in
-                    viewModel.addFolders(name: title)
+                    viewModel.addFolders(title: title)
                 }
                     .presentationCompactAdaptation(.sheet)
             }
