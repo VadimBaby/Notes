@@ -25,6 +25,8 @@ actor DataService: DataServiceProtocol {
     
     func deleteFolder(id: Int) async throws {
         try await client.database.from(folderDatabase).delete().eq("id", value: id).execute()
+        
+        try await client.database.from(noteDatabase).delete().eq("idFolder", value: id).execute()
     }
     
     func fetchNotes(idFolder: Int) async throws -> [NoteModel] {
