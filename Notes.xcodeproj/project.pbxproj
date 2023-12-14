@@ -31,7 +31,6 @@
 		2C97CA142B2A17A7003573B0 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97CA132B2A17A7003573B0 /* NoteModel.swift */; };
 		2C97CA162B2A19EB003573B0 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97CA152B2A19EB003573B0 /* NoteViewModel.swift */; };
 		2C97CA182B2A1DEF003573B0 /* FolderViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97CA172B2A1DEF003573B0 /* FolderViewComponents.swift */; };
-		2C97CA1A2B2A28D6003573B0 /* ChangingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97CA192B2A28D6003573B0 /* ChangingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +53,6 @@
 		2C97CA132B2A17A7003573B0 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		2C97CA152B2A19EB003573B0 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		2C97CA172B2A1DEF003573B0 /* FolderViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewComponents.swift; sourceTree = "<group>"; };
-		2C97CA192B2A28D6003573B0 /* ChangingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +131,6 @@
 			children = (
 				2C92BAB52B29B47C00CDCC88 /* FolderViewModel.swift */,
 				2C97CA152B2A19EB003573B0 /* NoteViewModel.swift */,
-				2C97CA192B2A28D6003573B0 /* ChangingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -282,7 +279,6 @@
 				2C97CA182B2A1DEF003573B0 /* FolderViewComponents.swift in Sources */,
 				2C92BAB92B29BA6000CDCC88 /* ListFolderViewComponents.swift in Sources */,
 				2C97CA142B2A17A7003573B0 /* NoteModel.swift in Sources */,
-				2C97CA1A2B2A28D6003573B0 /* ChangingViewModel.swift in Sources */,
 				2C92BA942B299E8C00CDCC88 /* MockDataService.swift in Sources */,
 				2C97CA162B2A19EB003573B0 /* NoteViewModel.swift in Sources */,
 				2C92BAB62B29B47C00CDCC88 /* FolderViewModel.swift in Sources */,
