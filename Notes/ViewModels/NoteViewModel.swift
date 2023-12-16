@@ -155,8 +155,8 @@ final class NoteViewModel: ObservableObject {
     
     private func addSubcriber() {
         $notes
-            .sink { notes in
-                self.sortedNotes = notes.sorted{ $0.created_at > $1.created_at }
+            .sink { [weak self] notes in
+                self?.sortedNotes = notes.sorted{ $0.created_at > $1.created_at }
             }
             .store(in: &cancellables)
     }

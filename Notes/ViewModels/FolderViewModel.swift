@@ -123,8 +123,8 @@ final class FolderViewModel: ObservableObject {
     
     private func addSubscriber() {
         $folders
-            .sink { folders in
-                self.sortedFolders = folders.sorted{ $0.created_at > $1.created_at }
+            .sink { [weak self] folders in
+                self?.sortedFolders = folders.sorted{ $0.created_at > $1.created_at }
             }
             .store(in: &cancellables)
     }
