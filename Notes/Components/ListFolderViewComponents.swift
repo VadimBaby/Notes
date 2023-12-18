@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension ListFolderView {
+extension ListFoldersView {
     @ViewBuilder var noDataMessageView: some View {
         Text("У вас нет папок")
             .font(.title)

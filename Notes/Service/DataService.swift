@@ -13,13 +13,17 @@ actor DataService: DataServiceProtocol {
     private let folderDatabase = "Folders"
     private let noteDatabase = "Notes"
     
-    private let client = SupabaseClient(supabaseURL: "https://jmsufvnxjbspcjobtpyx.supabase.co", supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imptc3Vmdm54amJzcGNqb2J0cHl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI0NTU4MzQsImV4cCI6MjAxODAzMTgzNH0.8N1WRvwbmsJEMfXNMCNyOQFW8Wuag4ilpJY6ke_ZoQg")
+    private let client = SupabaseClient(supabaseURL: "https://vdyyplvwizpsoyabsqre.supabase.co", supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkeXlwbHZ3aXpwc295YWJzcXJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI4NjcyOTcsImV4cCI6MjAxODQ0MzI5N30.p5sX4CBVMt-Xt_bKfu80mPDt9mxgrFYyluTmZsEpZ0k")
     
     func fetchFolders() async throws -> [FolderModel] {
         return try await client.database.from(folderDatabase).select().execute().value
     }
     
     func addFolder(folder: FolderModel) async throws {
+        if folder.title.isEmpty {
+            throw URLError(.badServerResponse)
+        }
+        
         try await client.database.from(folderDatabase).insert(folder).execute()
     }
     
@@ -34,6 +38,9 @@ actor DataService: DataServiceProtocol {
     }
     
     func addNote(note: NoteModel) async throws {
+        if note.title.isEmpty {
+            throw URLError(.badServerResponse)
+        }
         try await client.database.from(noteDatabase).insert(note).execute()
     }
     

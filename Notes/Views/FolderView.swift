@@ -37,22 +37,31 @@ struct FolderView: View {
                                 viewModel.updateNote(text: text, id: id)
                             }
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button("Удалить") {
+                                viewModel.deleteNote(id: note.id)
+                            }
+                            .tint(Color.red)
+                            
+                            Button("Редактировать") {
+                                self.showEditNoteSheet.toggle()
+                            }
+                            .tint(Color.yellow)
+                        }
                         .sheet(isPresented: $showEditNoteSheet, content: {
                             EditEntitySheet(text: note.title) { newTitle in
                                 viewModel.updateTitleNote(newTitle: newTitle, id: note.id)
                             }
                         })
                     }
-                    .onDelete(perform: viewModel.deleteNote)
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        Button("Редактировать") {
-                            self.showEditNoteSheet.toggle()
-                        }
-                        .tint(Color.yellow)
-                    }
                 }
             } else {
                 noDataView
+            }
+        }
+        .onAppear {
+            if viewModel.notes.isEmpty {
+                viewModel.fetchNotes()
             }
         }
         .popover(isPresented: $showAddNoteSheet, content: {
@@ -70,11 +79,6 @@ struct FolderView: View {
                 })
             }
         }
-        .onAppear {
-            if viewModel.notes.isEmpty {
-                viewModel.fetchNotes()
-            }
-        }
         .onDisappear {
             viewModel.cancelAllTasks()
         }
@@ -84,6 +88,6 @@ struct FolderView: View {
 
 #Preview {
     NavigationStack {
-        FolderView(folder: FolderModel(title: "Name"), service: DataService())
+        FolderView(folder: FolderModel(title: "Name"), service: MockDataService())
     }
 }

@@ -81,20 +81,16 @@ final class FolderViewModel: ObservableObject {
         tasks.append(task)
     }
     
-    func deleteFolder(indexSet: IndexSet) {
-        let oldFolders = sortedFolders
+    func deleteFolder(id: Int) {
+        folders.removeAll { folder in
+            return folder.id == id
+        }
         
-        sortedFolders.remove(atOffsets: indexSet)
-        
-        folders = sortedFolders
-        
-        indexSet.forEach { index in
-            Task {
-                do {
-                    try await service.deleteFolder(id: oldFolders[index].id)
-                } catch {
-                    print(error.localizedDescription)
-                }
+        Task {
+            do {
+                try await service.deleteFolder(id: id)
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }

@@ -9,7 +9,7 @@ import Foundation
 
 actor MockDataService: DataServiceProtocol {
     func fetchFolders() async throws -> [FolderModel] {
-        return []
+        return FakeData.folders
     }
     
     func addFolder(folder: FolderModel) async throws {
@@ -21,7 +21,7 @@ actor MockDataService: DataServiceProtocol {
     }
     
     func fetchNotes(idFolder: Int) async throws -> [NoteModel] {
-        return []
+        return FakeData.notes
     }
     
     func addNote(note: NoteModel) async throws {

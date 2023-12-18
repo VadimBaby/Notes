@@ -80,20 +80,16 @@ final class NoteViewModel: ObservableObject {
         tasks.append(task)
     }
     
-    func deleteNote(indexSet: IndexSet) {
-        let oldNotes = sortedNotes
+    func deleteNote(id: Int) {
+        notes.removeAll { note in
+            note.id == id
+        }
         
-        sortedNotes.remove(atOffsets: indexSet)
-        
-        notes = sortedNotes
-        
-        indexSet.forEach { index in
-            Task {
-                do {
-                    try await service.deleteNote(id: oldNotes[index].id)
-                } catch {
-                    print(error.localizedDescription)
-                }
+        Task {
+            do {
+                try await service.deleteNote(id: id)
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }

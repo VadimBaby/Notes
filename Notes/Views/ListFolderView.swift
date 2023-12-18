@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListFolderView: View {
+struct ListFoldersView: View {
     
     @State private var showAddFolderSheet: Bool = false
     @State private var showEditFolderSheet: Bool = false
@@ -37,18 +37,22 @@ struct ListFolderView: View {
                                     service: service
                                 )
                             }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button("Удалить") {
+                                    viewModel.deleteFolder(id: folder.id)
+                                }
+                                .tint(Color.red)
+                                
+                                Button("Редактировать") {
+                                    self.showEditFolderSheet.toggle()
+                                }
+                                .tint(Color.yellow)
+                            }
                             .sheet(isPresented: $showEditFolderSheet, content: {
                                 EditEntitySheet(text: folder.title) { text in
                                     viewModel.updateTitleFolder(newTitle: text, id: folder.id)
                                 }
                             })
-                        }
-                        .onDelete(perform: viewModel.deleteFolder)
-                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                            Button("Редактировать") {
-                                self.showEditFolderSheet.toggle()
-                            }
-                            .tint(Color.yellow)
                         }
                     }
                     .refreshable {
@@ -57,6 +61,9 @@ struct ListFolderView: View {
                 } else {
                     noDataMessageView
                 }
+            }
+            .onAppear {
+                viewModel.fetchFolders()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -74,9 +81,6 @@ struct ListFolderView: View {
                     .presentationCompactAdaptation(.sheet)
             }
             .navigationTitle("Папки")
-            .onAppear {
-                viewModel.fetchFolders()
-            }
             .onDisappear {
                 viewModel.cancelAllTasks()
             }
@@ -85,5 +89,5 @@ struct ListFolderView: View {
 }
 
 #Preview {
-    ListFolderView(service: DataService())
+    ListFoldersView(service: MockDataService())
 }
